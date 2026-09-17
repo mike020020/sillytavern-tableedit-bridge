@@ -1,0 +1,3 @@
+<tableEdit>
+{"updates":[{"table":"demo_npc_state","where":{"npc_name":"NPC甲"},"set":{"example_score":15,"example_tag":"初识","updated_at":"2026-01-01 12:00"}}]}
+</tableEdit>

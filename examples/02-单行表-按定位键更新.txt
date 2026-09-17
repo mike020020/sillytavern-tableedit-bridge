@@ -1,0 +1,3 @@
+<tableEdit>
+{"updates":[{"table":"demo_state","where":{"row_id":1},"set":{"example_time":"2026-01-01 12:30"}}]}
+</tableEdit>

@@ -1,0 +1,3 @@
+<tableEdit>
+{"inserts":[{"table":"demo_state","row":{"row_id":1,"current_location":"某地点","example_time":"2026-01-01 12:00","example_flag":"否","example_counter":"项A=0,项B=0"}}]}
+</tableEdit>

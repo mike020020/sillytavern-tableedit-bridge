@@ -1,0 +1,3 @@
+<tableEdit>
+{"inserts":[{"table":"demo_npc_profile","row":{"name":"NPC乙","appearance":"短发"}}]}
+</tableEdit>

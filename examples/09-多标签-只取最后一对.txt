@@ -1,0 +1,4 @@
+<tableEdit>
+思考里我提到了 <tableEdit> 这个词（不闭合）
+<tableEdit>{"updates":[{"table":"demo_state","where":{"row_id":1},"set":{"current_location":"另一个地点"}}]}</tableEdit>
+</tableEdit>

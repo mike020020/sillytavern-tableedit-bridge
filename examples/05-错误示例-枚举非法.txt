@@ -1,0 +1,3 @@
+<tableEdit>
+{"updates":[{"table":"demo_state","where":{"row_id":1},"set":{"example_flag":"也许"}}]}
+</tableEdit>

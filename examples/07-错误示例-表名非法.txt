@@ -1,0 +1,3 @@
+<tableEdit>
+{"updates":[{"table":"示例状态表","where":{"row_id":1},"set":{"current_location":"某地点"}}]}
+</tableEdit>
