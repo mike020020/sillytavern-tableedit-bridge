@@ -1,0 +1,38 @@
+id: 92000
+keys:
+  - TABLEDIT_PROTOCOL
+  - tableEdit
+secondary_keys: []
+comment: 正文 <tableEdit> 状态同步协议（模板，按自己的表改）
+content: |
+  【正文 <tableEdit> 状态同步协议】
+  正文不输出 SQL、SQL 代码块、UpdateVariable、JSONPatch 或旧变量路径。
+  只有在本轮剧情明确改变数据库状态时，才在正文末尾输出 <tableEdit>...</tableEdit> 状态块：标签必须单独占行，标签内部只能是合法 JSON。
+  固定格式：
+  <tableEdit>
+  {"updates":[{"table":"demo_npc_state","where":{"npc_name":"NPC甲"},"set":{"example_score":15,"example_tag":"初识","updated_at":"2026-01-01 08:30"}}],"inserts":[{"table":"demo_state","row":{"row_id":1,"current_location":"某地点","example_time":"2026-01-01 08:30","example_flag":"否","example_counter":"项A=0,项B=0"}}]}
+  </tableEdit>
+  没有明确状态变化时输出 <tableEdit>{"updates":[],"inserts":[]}</tableEdit>。
+  【可写表范围】只允许下面这几张物理表，其余模板表一律不得出现在 updates/inserts 中；同一张表的同一个定位键只允许写一次，禁止对同一行既 updates 又 inserts。
+  1. demo_state（示例单行状态表，唯一行 row_id=1，只更新不新增）
+     - 必填：current_location（文本）、example_time（格式 YYYY-MM-DD HH:MM）、example_counter（格式 项A=N,项B=N）
+     - example_flag 只能是「是」或「否」
+  2. demo_npc_state（示例NPC状态表，定位键 npc_name，首次互动可新增）
+     - npc_name 文本必填、全表唯一；example_score 整数，范围 -100～100
+     - example_tag 是短标签，最多 10 个字，写长句会被截断；updated_at 文本
+  3. demo_npc_profile（示例NPC档案表，定位键 name，只有首次建档才用 inserts）
+     - 必填：name、appearance；可选：brief_intro、alias
+     - 新增行请一次写全所有列，剧情还没确定的字段也显式写「未知」「无」或一句简短描述：留空列会被数据库插件的填表 AI 跳过，档案会长期缺项；状态桥虽会兜底补「未知」，但不要依赖
+  【字段硬性规则】
+  - table 必须写上面的物理表名，禁止自造表名、中文表名或 sheet_ 前缀
+  - set / row 的键必须是各表列出的 DDL 列名，禁止自造列名、中文列名、驼峰或大小写变体，未列出的字段一律不写（禁止跨表照搬列名）
+  - 整数列写数字，文本列写字符串；where 只能写定位键（单行表用 {"row_id":1}）
+  - 更新只写本轮真正变化的列；类型、范围、枚举、格式违规会被整块拒绝，超长文本会被截断并在提示里说明
+  - 禁止 DDL、建表删表、删除行、修改表结构与批量搬运数据
+  【填表通道】走状态块的表已在模板里关闭数据库插件自动填表（updateConfig.updateFrequency=0）：表格状态一律通过本协议的 <tableEdit> 写入，不要依赖插件自动填表、变量更新或旧变量路径。
+constant: true
+selective: false
+insertion_order: 2
+enabled: true
+position: after_char
+use_regex: false
